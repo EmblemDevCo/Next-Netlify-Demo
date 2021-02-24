@@ -3,7 +3,6 @@ import styles from "../styles/Home.module.css";
 const contentful = require("contentful");
 
 export default function Home({ name, talkTime, photo, socials, title }) {
-  console.log(photo.fields.file);
   return (
     <div className={styles.container}>
       <Head>
@@ -18,13 +17,22 @@ export default function Home({ name, talkTime, photo, socials, title }) {
           {new Date(talkTime).toDateString()}
         </p>
 
-        <img src={photo.fields.file.url} height="300px" style={{borderRadius: '50%'}}/>
-        <h2 style={{fontWeight: 500}}>By: {name}</h2>
-        <div  style={{display: 'flex', justifyContent: 'center'}}>
-          {socials.map(social => 
-          <a href={social.fields.href} className={styles.card}>
-            <h3>{social.fields.handle}</h3>
-          </a>)}
+        <img
+          src={photo.fields.file.url}
+          height="300px"
+          style={{ borderRadius: "50%" }}
+        />
+        <h2 style={{ fontWeight: 500 }}>By: {name}</h2>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          {socials.map((social) => (
+            <a
+              href={social.fields.href}
+              key={social.sys.id}
+              className={styles.card}
+            >
+              <h3>{social.fields.handle}</h3>
+            </a>
+          ))}
         </div>
       </main>
 
