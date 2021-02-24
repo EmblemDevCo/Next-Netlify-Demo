@@ -12,6 +12,15 @@ Click the fork button in the top right corner and fork it under your personal gi
 
 ## Run the app locally (skip if you just want to deploy to netlify)
 
+### Clone the forked repo
+
+You should clone the repository into whatever directory you like to keep you code projects
+Click the green code button, Copy the link provide and run this command 
+
+```bash
+git clone <copied repo link>
+```
+
 ### First, make sure you have node installed.
 
 I suggest installing node using [nvm](https://github.com/nvm-sh/nvm/blob/master/README.md). After node is intalled run nvm use 12 or higher. Restart your terminal and ensure node -v says you are running node 12 or whichever version you installed.
