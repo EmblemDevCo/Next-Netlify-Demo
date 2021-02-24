@@ -11,7 +11,7 @@ export default function Home({ name, talkTime, photo, socials, title }) {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>{title}</h1>
+        <h1 className={styles.title} style={{color: 'blue'}}>{title}</h1>
 
         <p className={styles.description}>
           {new Date(talkTime).toDateString()}
