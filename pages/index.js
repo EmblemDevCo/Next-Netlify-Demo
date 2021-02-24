@@ -1,7 +1,9 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import styles from "../styles/Home.module.css";
+const contentful = require("contentful");
 
-export default function Home() {
+export default function Home({ name, talkTime, photo, socials, title }) {
+  console.log(photo.fields.file);
   return (
     <div className={styles.container}>
       <Head>
@@ -10,43 +12,19 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <h1 className={styles.title}>{title}</h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
+          {new Date(talkTime).toDateString()}
         </p>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        <img src={photo.fields.file.url} height="300px" style={{borderRadius: '50%'}}/>
+        <h2 style={{fontWeight: 500}}>By: {name}</h2>
+        <div  style={{display: 'flex', justifyContent: 'center'}}>
+          {socials.map(social => 
+          <a href={social.fields.href} className={styles.card}>
+            <h3>{social.fields.handle}</h3>
+          </a>)}
         </div>
       </main>
 
@@ -56,10 +34,23 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
         </a>
       </footer>
     </div>
-  )
+  );
 }
+
+export const getServerSideProps = async () => {
+  const client = contentful.createClient({
+    // This is the space ID. A space is like a project folder in Contentful terms
+    space: process.env.CONTENTFUL_SPACE,
+    // This is the access token for this space. Normally you get both ID and the token in the Contentful web app
+    accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+  });
+  const response = await client.getEntry("6qHKZFEWn3iUpdz8m7kAz8");
+  return {
+    props: { ...response.fields },
+  };
+};

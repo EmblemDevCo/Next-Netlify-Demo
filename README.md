@@ -1,8 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## What you need
+
+- A netlify account (it's free)
+
+* Node (if you want to run this locally)
 
 ## Getting Started
 
-First, run the development server:
+### Fork this repo
+
+Click the fork button in the top right corner and fork it under your personal github organization
+
+## Run the app locally (skip if you just want to deploy to netlify)
+
+### First, make sure you have node installed.
+
+I suggest installing node using [nvm](https://github.com/nvm-sh/nvm/blob/master/README.md). After node is intalled run nvm use 12 or higher. Restart your terminal and ensure node -v says you are running node 12 or whichever version you installed.
+
+### Next, Install dependencies
+
+```bash
+npm install
+# or
+yarn
+```
+
+### Create a `.env.local` file in the root of the project and add these this
+
+```bash
+CONTENTFUL_SPACE=56zta97glphi
+CONTENTFUL_ACCESS_TOKEN=xyVRKdnVe8dls1F2Qmn9pteHEFKr9mq2XvzyDaaf2Gw
+```
+
+### Now, let's run our code locally
 
 ```bash
 npm run dev
@@ -12,23 +41,62 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Setup Netlify
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### Signup
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Go to [https://netlify.com](https://netlify.com)
 
-## Learn More
+Sign up or login using your github account
 
-To learn more about Next.js, take a look at the following resources:
+### First Time in Account
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Click through the get started guide
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Click New Site from Git
 
-## Deploy on Vercel
+Click Github under the Continuous Deployment Secion
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Sign into Github SSO
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Connect Desired Repo
+
+Choose the forked repo
+from the list. If you don't see it, search for `next-netlify-demo` and hit enter. This should
+make it appear.
+
+Make sure the branch to deploy is set to `main`
+
+Add `next build` in the build comand input
+
+Click Show Advanced, then new variable and add the two environment variables you copied to the `.env.local` file earlier
+
+Then, click to the Deploy Site button
+
+### Add Plugin for NextJS
+
+Click the Plugins tab in the main navigation
+
+Search for `next` in the search box
+
+Find the Next on Netlify plugin and click the install button
+
+INstall it on our site (if you have multiple sites be sure to choose the correct one)
+
+### Redeploy
+
+Go to Sites in the main navigation
+
+Pick our site
+
+Go To Deploys in the main navigation
+
+Click the trigger deploy button
+
+Click deploy site.
+
+Take a look at the build logs, you will notice that the pages are being statically generated and your build time should be fairly short.
+
+Once the deploy is done you can view the site on a live url.
+
+Go back to the site, and click on the provided url.
